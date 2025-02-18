@@ -50,8 +50,8 @@ export function showLoader() {
 }
 
 export function hideLoader() {
-  galleryImages.classList.remove('hidden');
   loader.classList.add('hidden');
+  galleryImages.classList.remove('hidden');
 }
 
 export function showMessage() {

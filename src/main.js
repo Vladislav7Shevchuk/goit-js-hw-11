@@ -14,25 +14,27 @@ form.addEventListener('submit', handleSubmit);
 function handleSubmit(e) {
   e.preventDefault();
 
-  const searchText = input.value;
+  const searchText = input.value.trim();
 
-  if (!searchText) return;
+  if (!searchText) {
+    return;
+  }
 
   input.value = '';
-
   showLoader();
 
   fetchImage(searchText)
-    .then(data => handleSearchResults(data.data.hits))
+    .then(data => {
+      handleSearchResults(data.data.hits);
+    })
     .catch(err => console.log(err));
 }
 
 function handleSearchResults(images) {
+  hideLoader();
+
   if (!images || images.length === 0) {
     showMessage();
-    hideLoader();
-    return;
   }
-
   renderGallery(images);
 }
