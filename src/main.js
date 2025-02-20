@@ -15,26 +15,32 @@ function handleSubmit(e) {
   e.preventDefault();
 
   const searchText = input.value.trim();
-
-  if (!searchText) {
-    return;
-  }
+  if (!searchText) return showMessage();
 
   input.value = '';
   showLoader();
 
   fetchImage(searchText)
     .then(data => {
-      handleSearchResults(data.data.hits);
+      const images = data.data.hits;
+
+      if (!images || images.length === 0) {
+        clearGallery();
+        throw new Error();
+      }
+
+      renderGallery(images);
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.error(' Помилка:', err);
+      hideLoader();
+      showMessage();
+    });
 }
 
-function handleSearchResults(images) {
-  hideLoader();
-
-  if (!images || images.length === 0) {
-    showMessage();
+function clearGallery() {
+  const gallery = document.querySelector('.gallery');
+  if (gallery) {
+    gallery.innerHTML = '';
   }
-  renderGallery(images);
 }

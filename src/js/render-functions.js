@@ -45,11 +45,13 @@ export function renderGallery(images) {
 }
 
 export function showLoader() {
+  console.log('🚀 Виконано showLoader()');
   galleryImages.classList.add('hidden');
   loader.classList.remove('hidden');
 }
 
 export function hideLoader() {
+  console.log('✅ Виконано hideLoader()');
   loader.classList.add('hidden');
   galleryImages.classList.remove('hidden');
 }
